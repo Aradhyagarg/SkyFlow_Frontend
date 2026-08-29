@@ -83,7 +83,7 @@ function PaymentScreen({
     }
 
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_SkyFlowDemo123',
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_FZ7IMhBvL8Q5lf',
       amount: booking.totalCost * 100, // Amount in paise
       currency: 'INR',
       name: 'SkyFlow Airlines',
