@@ -842,12 +842,17 @@ function App() {
               returnFlight={currentBooking.isRoundTrip ? selectedReturnFlight : null}
               onPaymentSuccess={(updatedBooking) => {
                 if (currentBooking.isRoundTrip) {
+                  const outboundPnr = updatedBooking?.outbound?.pnr || currentBooking?.outboundPnr || currentBooking?.pnr || 'CONFIRMED';
+                  const returnPnr = updatedBooking?.return?.pnr || currentBooking?.returnPnr || 'CONFIRMED';
                   setBookingSuccessData({
-                    pnr: `${updatedBooking.outbound.pnr} / ${updatedBooking.return.pnr}`,
-                    totalCost: updatedBooking.outbound.totalCost + updatedBooking.return.totalCost
+                    pnr: `${outboundPnr} / ${returnPnr}`,
+                    totalCost: updatedBooking?.totalCost || currentBooking?.totalCost || 0
                   });
                 } else {
-                  setBookingSuccessData(updatedBooking);
+                  setBookingSuccessData({
+                    pnr: updatedBooking?.pnr || currentBooking?.pnr || 'CONFIRMED',
+                    totalCost: updatedBooking?.totalCost || currentBooking?.totalCost || 0
+                  });
                 }
                 setCurrentBooking(null);
                 setPaymentFlight(null);
