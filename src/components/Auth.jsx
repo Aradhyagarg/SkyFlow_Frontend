@@ -39,7 +39,13 @@ function Auth({
           }}>
             <button 
               type="button"
-              onClick={() => { setAuthMode('login'); setAuthError(''); setAuthSuccess(''); }}
+              onClick={() => { 
+                setAuthMode('login'); 
+                setAuthEmail(''); 
+                setAuthPassword(''); 
+                setAuthError(''); 
+                setAuthSuccess(''); 
+              }}
               style={{
                 flex: 1,
                 padding: '8px',
@@ -55,7 +61,13 @@ function Auth({
             </button>
             <button 
               type="button"
-              onClick={() => { setAuthMode('register'); setAuthError(''); setAuthSuccess(''); }}
+              onClick={() => { 
+                setAuthMode('register'); 
+                setAuthEmail(''); 
+                setAuthPassword(''); 
+                setAuthError(''); 
+                setAuthSuccess(''); 
+              }}
               style={{
                 flex: 1,
                 padding: '8px',
@@ -110,7 +122,13 @@ function Auth({
           {authMode === 'login' && (
             <div style={{ textAlign: 'right', marginTop: '-10px' }}>
               <span 
-                onClick={() => { setAuthMode('forgot'); setAuthError(''); setAuthSuccess(''); }}
+                onClick={() => { 
+                  setAuthMode('forgot'); 
+                  setAuthEmail(''); 
+                  setAuthPassword(''); 
+                  setAuthError(''); 
+                  setAuthSuccess(''); 
+                }}
                 style={{ fontSize: '0.8rem', color: 'var(--color-secondary)', cursor: 'pointer', textDecoration: 'none' }}
                 onMouseOver={(e) => e.target.style.textDecoration = 'underline'}
                 onMouseOut={(e) => e.target.style.textDecoration = 'none'}
@@ -173,7 +191,13 @@ function Auth({
           {authMode === 'forgot' && (
             <div style={{ textAlign: 'center', marginTop: '10px' }}>
               <span 
-                onClick={() => { setAuthMode('login'); setAuthError(''); setAuthSuccess(''); }}
+                onClick={() => { 
+                  setAuthMode('login'); 
+                  setAuthEmail(''); 
+                  setAuthPassword(''); 
+                  setAuthError(''); 
+                  setAuthSuccess(''); 
+                }}
                 style={{ fontSize: '0.85rem', color: 'var(--text-muted)', cursor: 'pointer', textDecoration: 'none' }}
                 onMouseOver={(e) => e.target.style.color = '#fff'}
                 onMouseOut={(e) => e.target.style.color = 'var(--text-muted)'}

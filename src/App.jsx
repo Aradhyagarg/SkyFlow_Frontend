@@ -301,13 +301,17 @@ function App() {
       try {
         const res = await authApi.forgotPassword(authEmail);
         if (res.success) {
-          setAuthSuccess('Password reset link sent! Please check your Auth Service console logs for the link.');
+          setAuthSuccess('Password reset link sent! Please check your email inbox for the reset link.');
           setAuthEmail('');
         } else {
-          setAuthError(res.error?.explanation || 'Failed to send reset link');
+          const exp = Array.isArray(res.error?.explanation) ? res.error?.explanation[0] : res.error?.explanation;
+          setAuthError(exp || 'Failed to send reset link');
         }
       } catch (err) {
-        setAuthError(err.response?.data?.error?.explanation?.[0] || 'No account registered with this email address');
+        const exp = Array.isArray(err.response?.data?.error?.explanation) 
+          ? err.response?.data?.error?.explanation[0] 
+          : err.response?.data?.error?.explanation;
+        setAuthError(exp || 'No account registered with this email address');
       }
       return;
     }
@@ -340,20 +344,25 @@ function App() {
           setAuthPassword('');
           setActiveTab('flights');
         } else {
-          setAuthError(res.error?.explanation || 'Authentication failed');
+          const exp = Array.isArray(res.error?.explanation) ? res.error?.explanation[0] : res.error?.explanation;
+          setAuthError(exp || 'Authentication failed');
         }
       } else {
         const res = await authApi.signup(authEmail, authPassword);
         if (res.success) {
-          setAuthSuccess('Registration successful! Please check your Auth Service console logs for the verification link, open it to verify your email, then log in here.');
+          setAuthSuccess('Registration successful! Please check your email inbox for the verification link to activate your account.');
           setAuthMode('login');
           setAuthPassword('');
         } else {
-          setAuthError(res.error?.explanation || 'Registration failed');
+          const exp = Array.isArray(res.error?.explanation) ? res.error?.explanation[0] : res.error?.explanation;
+          setAuthError(exp || 'Registration failed');
         }
       }
     } catch (err) {
-      setAuthError(err.response?.data?.error?.explanation?.[0] || 'Authentication Service is unreachable');
+      const exp = Array.isArray(err.response?.data?.error?.explanation) 
+        ? err.response?.data?.error?.explanation[0] 
+        : err.response?.data?.error?.explanation;
+      setAuthError(exp || 'Authentication failed. Please check your credentials or try again.');
     }
   };
 
