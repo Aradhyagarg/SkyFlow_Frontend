@@ -110,5 +110,13 @@ export const bookingApi = {
             }
         );
         return response.data;
+    },
+    createRazorpayOrder: async (amount) => {
+        const response = await axios.post(
+            `${BOOKING_URL}/bookings/razorpay/create-order`, 
+            { amount }, 
+            { headers: getAuthHeaders() }
+        );
+        return response.data;
     }
 };

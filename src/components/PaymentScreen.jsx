@@ -82,13 +82,26 @@ function PaymentScreen({
       return;
     }
 
+    let orderData = null;
+    try {
+      const orderRes = await bookingApi.createRazorpayOrder(booking.totalCost);
+      if (orderRes.success && orderRes.data) {
+        orderData = orderRes.data;
+      }
+    } catch (err) {
+      console.log('Using test order fallback:', err);
+    }
+
+    const razorpayKey = orderData?.keyId || import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_FZ7IMhBvL8Q5lf';
+
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_FZ7IMhBvL8Q5lf',
-      amount: booking.totalCost * 100, // Amount in paise
-      currency: 'INR',
+      key: razorpayKey,
+      amount: orderData?.amount || booking.totalCost * 100,
+      currency: orderData?.currency || 'INR',
       name: 'SkyFlow Airlines',
       description: booking.isRoundTrip ? 'Combined Round-Trip Ticket Payment' : 'Flight Ticket Payment',
       image: 'https://cdn-icons-png.flaticon.com/512/7893/7893979.png',
+      ...(orderData?.id && !orderData.id.startsWith('order_test_') ? { order_id: orderData.id } : {}),
       handler: async function (response) {
         setLoading(true);
         try {
