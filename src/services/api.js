@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const GATEWAY_URL = import.meta.env.VITE_GATEWAY_URL || 'https://skyflow-backend.aradhyagarg.deno.net/api/v1';
+const GATEWAY_URL = import.meta.env.VITE_GATEWAY_URL || 'https://sky-flow-backend-734p.vercel.app/api/v1';
 
 const AUTH_URL = GATEWAY_URL;
 const AIRLINE_URL = GATEWAY_URL;
